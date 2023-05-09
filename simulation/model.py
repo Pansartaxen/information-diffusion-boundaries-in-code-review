@@ -13,6 +13,7 @@ class EntityNotFound(Exception):
     pass
 
 
+
 class TimeVaryingHypergraph:
     def __init__(self, hedges: dict, timings: dict):
         self._vertices = defaultdict(list)
