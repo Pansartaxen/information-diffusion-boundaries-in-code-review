@@ -15,6 +15,10 @@ class ModelTest(unittest.TestCase):
         self.assertEqual(len(ModelTest.cn.hyperedges()), 3)
         self.assertEqual(ModelTest.cn.hyperedges('v1'), {'h1'})
 
+    def test_timings(self):
+        self.assertEqual(len(ModelTest.cn.timings()), 3)
+        self.assertEqual(ModelTest.cn.timings('h1'), 1)
+
 
 class ModelDataTest(unittest.TestCase):
     def test_model_with_data(self):
