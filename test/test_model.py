@@ -8,6 +8,7 @@ class ModelTest(unittest.TestCase):
     cn = CommunicationNetwork({'h1': ['v1', 'v2'], 'h2': ['v2', 'v3'], 'h3': ['v3', 'v4']}, {'h1': 1, 'h2': 2, 'h3': 3})
 
 
+    # TimeVaryingHypergraph
     def test_vertices(self):
         self.assertEqual(len(ModelTest.cn.vertices()), 4)
         self.assertEqual(ModelTest.cn.vertices('h1'), {'v1', 'v2'})
@@ -20,9 +21,14 @@ class ModelTest(unittest.TestCase):
         self.assertEqual(len(ModelTest.cn.timings()), 3)
         self.assertEqual(ModelTest.cn.timings('h1'), 1)
 
+    # CommunicationNetwork
     def test_channels(self):
         self.assertEqual(len(ModelTest.cn.channels()), 3)
         self.assertEqual(ModelTest.cn.channels('v1'), {'h1'})
+
+    def test_participants(self):
+        self.assertEqual(len(ModelTest.cn.participants()), 4)
+        self.assertEqual(ModelTest.cn.participants('h1'), {'v1', 'v2'})
 
 
 class ModelDataTest(unittest.TestCase):
@@ -33,3 +39,4 @@ class ModelDataTest(unittest.TestCase):
 
         self.assertEqual(len(communciation_network.vertices()), 37103)
         self.assertEqual(len(communciation_network.hyperedges()), 309740)
+        
