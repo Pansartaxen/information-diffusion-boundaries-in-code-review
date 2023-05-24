@@ -1,2 +1,6 @@
 tqdm
 pandas
+testbook
+nbformat
+nbconvert
+ipywidgets
