@@ -4,3 +4,6 @@ testbook
 nbformat
 nbconvert
 ipywidgets
+matplotlib
+numpy
+Pillow
