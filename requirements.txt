@@ -7,3 +7,5 @@ ipywidgets
 matplotlib
 numpy
 Pillow
+opencv-python
+imagehash

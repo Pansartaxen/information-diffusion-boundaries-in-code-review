@@ -3,7 +3,9 @@ from nbconvert.preprocessors import ExecutePreprocessor
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
-from time import time
+import cv2
+import imagehash
+import base64
 
 def execute_notebook(notebook_path):
     with open(notebook_path) as f:
@@ -15,65 +17,52 @@ def execute_notebook(notebook_path):
 
     return notebook
 
-def extract_outputs(notebook):
-    outputs = []
-    for cell in notebook.cells:
-        print('cell', cell, '\ncell type', cell.cell_type, '\ncell outputs', cell.outputs)
-        if cell.cell_type == 'code' and 'outputs' in cell:
-            for output in cell.outputs:
-                print('Output', output, '\noutput type', output.output_type, '\nOutput data', output.data)
-                if output.output_type == 'execute_result':
-                    if 'data' in output and 'image/png' in output.data:
-                        print(output.data['image/png'])
-                        outputs.append(output.data['image/png'])
-
-    return outputs
-
-def compare_images(image_1, image_2):
-    image1 = Image.open(image_1)
-    image2 = Image.open(image_2)
-
-    # Convert images to numpy arrays
-    array1 = np.array(image1)
-    array2 = np.array(image2)
-
-    # Calculate the mean squared error (MSE) between the two images
-    mse = np.mean((array1 - array2) ** 2)
-
-    # Define a threshold for similarity
-    threshold = 100  # Adjust this value based on your specific requirements
-
-    # Compare MSE with the threshold
-    return mse < threshold
-
 def test_notebook_outputs():
     notebook_path = 'notebooks/plot.ipynb'
 
     notebook = execute_notebook(notebook_path)
-    #outputs = extract_outputs(notebook)
 
-    last_cell = notebook.cells[-1]
+    last_cell = notebook.cells[-1]  # Assuming `notebook` is the notebook object
 
     if last_cell.outputs:
         first_output = last_cell.outputs[0]
-        output_type = type(first_output)
-        output_keys = first_output.keys()
+        data = first_output['data']
 
-        print("Output Type:", output_type)
-        print("Output Keys:", output_keys)
+        image_disk = cv2.imread('test/Reference_pictures/output.png')
 
-        for key in output_keys:
-            print(key, ":", first_output[key])
-    else:
-        print("No outputs in the last cell.")
+        # Assume you already have the image in memory as a variable
+        # Here, image_memory represents the image data stored in memory
+        # Replace this with your actual variable containing the image data
+        image_memory_base64 = data['image/png']
 
-    #generated_plot = last_cell.outputs[0]['data']['image/png']
+        # Decode the base64 string into bytes
+        image_memory_bytes = base64.b64decode(image_memory_base64)
 
-    #reference_plot_path = 'test/Reference_pictures/output.png'
+        # Convert the bytes to a NumPy array
+        image_memory = np.frombuffer(image_memory_bytes, dtype=np.uint8)
 
-    #comparison = compare_images(generated_plot, reference_plot_path)
+        # Decode the NumPy array as an image
+        image_memory = cv2.imdecode(image_memory, cv2.IMREAD_COLOR)
 
-    #assert comparison, 'The generated plot does not match the reference plot.'
+        # Convert the image in memory to a NumPy array and ensure RGB color space
+        image_memory = cv2.cvtColor(image_memory, cv2.COLOR_BGR2RGB)
+
+        # Ensure that both images are of the same data type (np.uint8)
+        image_disk = np.array(image_disk, dtype=np.uint8)
+        image_memory = np.array(image_memory, dtype=np.uint8)
+
+        # Calculate the perceptual hashes
+        hash_disk = imagehash.average_hash(Image.fromarray(image_disk))
+        hash_memory = imagehash.average_hash(Image.fromarray(image_memory))
+
+        # Compare the hash values
+        threshold = 5  # Adjust this value based on your requirements
+
+        # Calculate the hamming distance between the hashes
+        hamming_distance = hash_disk - hash_memory
+
+        # Compare the hamming distance with the threshold
+        return hamming_distance <= threshold
 
 
 if __name__ == '__main__':
