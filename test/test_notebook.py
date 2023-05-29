@@ -20,7 +20,7 @@ class Test_motebook(unittest.TestCase):
         return notebook
 
     def test_notebook_outputs(self):
-        notebook_path = 'data/notebooks/plot.ipynb'
+        notebook_path = '../data/notebooks/plot.ipynb'
 
         notebook = self.execute_notebook(notebook_path)
 
