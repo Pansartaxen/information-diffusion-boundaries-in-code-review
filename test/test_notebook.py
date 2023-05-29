@@ -7,6 +7,7 @@ import cv2
 import imagehash
 import base64
 import unittest
+import os
 
 class Test_motebook(unittest.TestCase):
     def execute_notebook(self, notebook_path):
@@ -15,12 +16,14 @@ class Test_motebook(unittest.TestCase):
 
         executor = ExecutePreprocessor(timeout=6000)  # High time out because this notebook takes forever to run *sigh*
 
-        executor.preprocess(notebook, {'metadata': {'path': './test'}})
+        executor.preprocess(notebook, {'metadata': {'path': './'}})
 
         return notebook
 
     def test_notebook_outputs(self):
-        notebook_path = '../data/notebooks/plot.ipynb'
+        #print current directory
+        print(os.getcwd())
+        notebook_path = 'data/notebooks/plot.ipynb'
 
         notebook = self.execute_notebook(notebook_path)
 
@@ -30,7 +33,7 @@ class Test_motebook(unittest.TestCase):
             first_output = last_cell.outputs[0]
             data = first_output['data']
 
-            image_disk = cv2.imread('Reference_pictures/output.png')
+            image_disk = cv2.imread('test/Reference_pictures/output.png')
 
             image_memory_base64 = data['image/png']
 
