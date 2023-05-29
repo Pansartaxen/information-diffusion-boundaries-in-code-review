@@ -28,3 +28,4 @@ jobs:
     - name: Run Tests
       run: |
         python3 -m unittest discover
+        python3 test/test_notebook.py
