@@ -152,4 +152,3 @@ cython_debug/
 #.idea/
 
 *.DS\_Store
-data/minimal_paths/microsoft.pickle.bz2
