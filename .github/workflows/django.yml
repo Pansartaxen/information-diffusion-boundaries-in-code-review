@@ -24,7 +24,7 @@ jobs:
     - name: Install Dependencies
       run: |
         pwd
-        curl -o /data/minimal_paths/microsoft.pickle.bz2 https://zenodo.org/record/7898863/files/microsoft.pickle.bz2?download=1
+        curl -o /home/runner/work/information-diffusion-boundaries-in-code-review/information-diffusion-boundaries-in-code-review/data/minimal_paths/microsoft.pickle.bz2 https://zenodo.org/record/7898863/files/microsoft.pickle.bz2?download=1
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run Tests
