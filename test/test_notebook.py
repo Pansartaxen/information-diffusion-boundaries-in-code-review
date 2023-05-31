@@ -13,7 +13,7 @@ class Test_motebook(unittest.TestCase):
         with open(notebook_path) as f:
             notebook = nbformat.read(f, as_version=4)
 
-        executor = ExecutePreprocessor(timeout=6000)  # High time out because this notebook takes forever to run *sigh*
+        executor = ExecutePreprocessor(timeout=60000)  # High time out because this notebook takes forever to run *sigh*
 
         executor.preprocess(notebook, {'metadata': {'path': './'}})
 

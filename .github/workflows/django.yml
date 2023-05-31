@@ -15,6 +15,11 @@ jobs:
       matrix:
         python-version: ["3.11"]
 
+    container:
+      resources:
+        cpu: 16
+        memory: 64GB
+
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
