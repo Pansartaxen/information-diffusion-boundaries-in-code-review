@@ -17,8 +17,8 @@ jobs:
 
     container:
       resources:
-        cpu: 16
-        memory: 64GB
+        cpu: 8
+        memory: 32GB
 
     steps:
     - uses: actions/checkout@v3
