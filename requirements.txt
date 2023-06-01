@@ -9,4 +9,3 @@ numpy
 Pillow
 opencv-python
 imagehash
-scikit-image
