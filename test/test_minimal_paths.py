@@ -39,5 +39,13 @@ class MinimalPath(unittest.TestCase):
         self.assertEqual(result, expected_res)
 
 
+    def test_7(self):
+        result = single_source_dijkstra_vertices(MinimalPath.cn1,-6410414390854871141, DistanceType.FASTEST, datetime.datetime(2020,2,5,12,49,39))
+        expected_res = {-4790071369877151138: datetime.timedelta(0)}
+        self.assertEqual(result, expected_res)
 
+    def test_8(self):
+        result = single_source_dijkstra_hyperedges(MinimalPath.cn1,-6410414390854871141, DistanceType.FASTEST, datetime.datetime(2020,2,5,12,49,39))
+        expected_res = {-4790071369877151138: datetime.timedelta(0)}
+        self.assertEqual(result, expected_res)
         
