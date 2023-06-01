@@ -21,7 +21,7 @@ class ModelTest(unittest.TestCase):
         self.assertEqual(len(ModelTest.cn.timings()), 3)
         self.assertEqual(ModelTest.cn.timings('h1'), 1)
 
-    def test_unkown_vertex(self):
+    def test_unkown_hyperedge(self):
         with self.assertRaises(EntityNotFound):
             ModelTest.cn2.hyperedges(-1)
 
