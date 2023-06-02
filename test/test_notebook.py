@@ -23,8 +23,8 @@ class TestNotebook(unittest.TestCase):
 
     def execute_notebook(self, notebook_path) -> nbformat.NotebookNode:
         """
-        Executes the notebook and stores it in
-        the self._notebook for quick access
+        Help function that executes the notebook and
+        stores it in the self._notebook for quick access
         """
         if os.path.isfile('data/minimal_paths/microsoft.pickle.bz2'):
             with open(notebook_path) as f:
@@ -76,7 +76,7 @@ class TestNotebook(unittest.TestCase):
 
                 self.assertAlmostEqual(hash_disk, hash_memory, delta = 5)
             else:
-                self.skipTest(f"File 'microsoft.pickle.bz2' not found, skipping the test.")
+                self.skipTest('File "microsoft.pickle.bz2" not found, skipping the test.')
 
     def test_pickle_read_TC20(self) -> None:
         """Checks if the pickle is read correctly"""
@@ -98,7 +98,7 @@ class TestNotebook(unittest.TestCase):
 
             self.assertEqual(cell_var, reference)
         else:
-            self.skipTest(f"File 'microsoft.pickle.bz2' not found, skipping the test.")
+            self.skipTest('File microsoft.pickle.bz2 not found, skipping the test.')
 
 
 if __name__ == '__main__':
