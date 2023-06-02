@@ -36,7 +36,7 @@ class TestNotebook(unittest.TestCase):
 
             return notebook
 
-    def test_notebook_outputs(self) -> None:
+    def test_notebook_outputs_TC19(self) -> None:
         """Evaluates the plot outputed by the notebook"""
         if os.path.isfile('data/minimal_paths/microsoft.pickle.bz2'):
             last_cell = self._notebook.cells[-1]
@@ -78,7 +78,7 @@ class TestNotebook(unittest.TestCase):
             else:
                 self.skipTest(f"File 'microsoft.pickle.bz2' not found, skipping the test.")
 
-    def test_pickle_read(self) -> None:
+    def test_pickle_read_TC20(self) -> None:
         """Checks if the pickle is read correctly"""
         if os.path.isfile('data/minimal_paths/microsoft.pickle.bz2'):
             reference = pd.read_pickle('data/minimal_paths/microsoft.pickle.bz2')
