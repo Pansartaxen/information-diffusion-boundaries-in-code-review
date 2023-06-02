@@ -1,24 +1,18 @@
 import base64
-import cv2
 import os
-from datetime import timedelta
+
+import cv2
 import imagehash
-import matplotlib.pyplot as plt
 import nbformat
 import numpy as np
-from nbconvert.preprocessors import ExecutePreprocessor
-from PIL import Image
 import pandas as pd
-import unittest
-import base64
-import cv2
-import numpy as np
 from PIL import Image
+from nbconvert.preprocessors import ExecutePreprocessor
+import unittest
 
 class TestNotebook(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        #self._notebook = self.execute_notebook('notebooks/plot.ipynb')
         self._notebook = self.execute_notebook('notebooks/plot.ipynb')
 
     def execute_notebook(self, notebook_path) -> nbformat.NotebookNode:
