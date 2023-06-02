@@ -9,39 +9,39 @@ class ModelTest(unittest.TestCase):
     cn2 = CommunicationNetwork({'1': {100, 3}},{'1': datetime.datetime(2020,2,5,12,49,39)})
 
     # TimeVaryingHypergraph
-    def test_vertices(self):
+    def test_vertices_TC11(self):
         self.assertEqual(len(ModelTest.cn.vertices()), 4)
         self.assertEqual(ModelTest.cn.vertices('h1'), {'v1', 'v2'})
 
-    def test_hyperedges(self):
+    def test_hyperedges_TC12(self):
         self.assertEqual(len(ModelTest.cn.hyperedges()), 3)
         self.assertEqual(ModelTest.cn.hyperedges('v1'), {'h1'})
 
-    def test_timings(self):
+    def test_timings_TC13(self):
         self.assertEqual(len(ModelTest.cn.timings()), 3)
         self.assertEqual(ModelTest.cn.timings('h1'), 1)
 
-    def test_unkown_hyperedge(self):
+    def test_unkown_hyperedge_TC14(self):
         with self.assertRaises(EntityNotFound):
             ModelTest.cn2.hyperedges(-1)
 
-    def test_unkown_vertices(self):
+    def test_unkown_vertices_TC15(self):
         with self.assertRaises(EntityNotFound):
             ModelTest.cn2.vertices("-1")
 
 
     # CommunicationNetwork
-    def test_channels(self):
+    def test_channels_TC16(self):
         self.assertEqual(len(ModelTest.cn.channels()), 3)
         self.assertEqual(ModelTest.cn.channels('v1'), {'h1'})
 
-    def test_participants(self):
+    def test_participants_TC17(self):
         self.assertEqual(len(ModelTest.cn.participants()), 4)
         self.assertEqual(ModelTest.cn.participants('h1'), {'v1', 'v2'})
 
 
 class ModelDataTest(unittest.TestCase):
-    def test_model_with_data(self):
+    def test_model_with_data_TC18(self):
         communciation_network = CommunicationNetwork.from_json('./data/networks/microsoft.json')
         self.assertEqual(len(communciation_network.participants()), 37103)
         self.assertEqual(len(communciation_network.channels()), 309740)
