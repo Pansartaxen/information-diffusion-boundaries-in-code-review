@@ -1,6 +1,6 @@
+import unittest
 import base64
 import os
-
 import cv2
 import imagehash
 import nbformat
@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 from PIL import Image
 from nbconvert.preprocessors import ExecutePreprocessor
-import unittest
+
 
 class TestNotebook(unittest.TestCase):
     def __init__(self, *args, **kwargs):
@@ -21,16 +21,14 @@ class TestNotebook(unittest.TestCase):
         stores it in the self._notebook for quick access
         """
         if os.path.isfile('data/minimal_paths/microsoft.pickle.bz2'):
-            with open(notebook_path) as f:
-                notebook = nbformat.read(f, as_version=4)
-
+            with open(notebook_path, encoding="utf-8") as file:
+                notebook = nbformat.read(file, as_version=4)
             executor = ExecutePreprocessor(timeout=60000)  # High time out because this notebook takes forever to run *sigh*
-
             executor.preprocess(notebook, {'metadata': {'path': './'}})
-
             return notebook
+        return None
 
-    def test_notebook_outputs_TC19(self) -> None:
+    def test_notebook_outputs_tc19(self) -> None:
         """Evaluates the plot outputed by the notebook"""
         if os.path.isfile('data/minimal_paths/microsoft.pickle.bz2'):
             last_cell = self._notebook.cells[-1]
@@ -72,7 +70,7 @@ class TestNotebook(unittest.TestCase):
             else:
                 self.skipTest('File "microsoft.pickle.bz2" not found, skipping the test.')
 
-    def test_pickle_read_TC20(self) -> None:
+    def test_pickle_read_tc20(self) -> None:
         """Checks if the pickle is read correctly"""
         if os.path.isfile('data/minimal_paths/microsoft.pickle.bz2'):
             reference = pd.read_pickle('data/minimal_paths/microsoft.pickle.bz2')
